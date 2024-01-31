@@ -60,6 +60,11 @@ class Play extends Phaser.Scene {
         null,
         this
         )
+
+        //physics colliders
+        this.physics.add.collider(this.p1Rocket, this.ship03, this.handleCollision, null, this)
+        this.physics.add.collider(this.p1Rocket, this.ship02, this.handleCollision, null, this)
+        this.physics.add.collider(this.p1Rocket, this.ship01, this.handleCollision, null, this)
     }
 
     update() {
@@ -84,7 +89,8 @@ class Play extends Phaser.Scene {
             this.ship03.update();
         }
 
-        //collisions
+        //old non-physics collisions
+        /*
         if(this.checkCollision(this.p1Rocket, this.ship03)) {
             this.p1Rocket.reset()
             this.shipExplode(this.ship03)
@@ -97,8 +103,11 @@ class Play extends Phaser.Scene {
             this.p1Rocket.reset()
             this.shipExplode(this.ship01)
         }
-    }
+        */
+    }    
 
+    //old collision checking
+    /*
     checkCollision(rocket, ship) {
         //simple aabb checking
         if (rocket.x < ship.x + ship.width && rocket.x + rocket.width > ship.x && rocket.y < ship.y + ship.height && rocket.height + rocket.y > ship.y) {
@@ -106,6 +115,12 @@ class Play extends Phaser.Scene {
         } else {
             return false
         }
+    }
+    */
+
+    handleCollision(rocket, ship) {
+        rocket.reset()
+        this.shipExplode(ship)
     }
 
     shipExplode(ship) {
@@ -121,6 +136,7 @@ class Play extends Phaser.Scene {
         })
         
         //score
+        console.log(`added ${ship.points} points`)
         this.p1Score += ship.points
         this.scoreLeft.text = this.p1Score
 
