@@ -20,7 +20,10 @@ class Play extends Phaser.Scene {
         //adding 3 spaceships
         this.ship01 = new Spaceship(this, game.config.width + borderUISize * 6, borderUISize * 4, 'spaceship', 0, 30).setOrigin(0,0)
         this.ship02 = new Spaceship(this, game.config.width + borderUISize * 3, borderUISize * 5 + borderPadding * 2, 'spaceship', 0, 20).setOrigin(0,0)
-        this.ship03 = new Spaceship(this, game.config.width, borderUISize * 6 + borderPadding * 4, 'spaceship', 0, 10).setOrigin(0,0)
+        this.ship03 = new Spaceship(this, game.config.width, borderUISize * 7 + borderPadding * 1, 'spaceship', 0, 10).setOrigin(0,0)
+        //adding speeders
+        this.speeder01 = new Speeder(this, game.config.width + borderUISize * 7, borderUISize * 3 + borderPadding * 1, 'speeder', 0, 40).setOrigin(0,0)
+        this.speeder02 = new Speeder(this, game.config.width, borderUISize * 8 + borderPadding * 2, 'speeder', 0, 15).setOrigin(0,0)
         
         // define keys
         keyFIRE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F)
@@ -65,6 +68,9 @@ class Play extends Phaser.Scene {
         this.physics.add.collider(this.p1Rocket, this.ship03, this.handleCollision, null, this)
         this.physics.add.collider(this.p1Rocket, this.ship02, this.handleCollision, null, this)
         this.physics.add.collider(this.p1Rocket, this.ship01, this.handleCollision, null, this)
+        //physics colliders speeders
+        this.physics.add.collider(this.p1Rocket, this.speeder01, this.handleCollision, null, this)
+        this.physics.add.collider(this.p1Rocket, this.speeder02, this.handleCollision, null, this)
     }
 
     update() {
@@ -87,6 +93,8 @@ class Play extends Phaser.Scene {
             this.ship01.update();
             this.ship02.update();
             this.ship03.update();
+            this.speeder01.update();
+            this.speeder02.update();
         }
 
         //old non-physics collisions
@@ -126,8 +134,14 @@ class Play extends Phaser.Scene {
     shipExplode(ship) {
         //hide ship for a bit
         ship.alpha = 0
+        //test if is ship or speeder?
+        //console.log(ship.constructor.name)
+        let isSpeeder = 1
+        if(ship.constructor.name == 'Speeder') {
+            isSpeeder = 0.5
+        }
         //create boom
-        let boom = this.add.sprite(ship.x, ship.y, 'explosion').setOrigin(0,0);
+        let boom = this.add.sprite(ship.x, ship.y, 'explosion').setOrigin(0,0).setScale(1, isSpeeder);
         boom.anims.play('explode')
         boom.on('animationcomplete', () => {
             ship.reset()
