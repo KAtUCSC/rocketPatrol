@@ -53,7 +53,7 @@ class Play extends Phaser.Scene {
         //game over flag
         this.gameOver = false
 
-        //60 second timer
+        //timer
         scoreConfig.fixedWidth = 0
         this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
             this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5)
@@ -63,6 +63,24 @@ class Play extends Phaser.Scene {
         null,
         this
         )
+
+        //timer display
+        let timerConfig = {
+            fontFamily: 'Courier',
+            fontSize: '28px',
+            backgroundColor: '#F3B141',
+            color: '#843605',
+            align: 'right',
+            padding: {
+              top: 5,
+              bottom: 5,
+            },
+            fixedWidth: 100
+        }
+        
+        this.timeLeft = this.add.text(borderUISize * 8 + borderPadding * 1, borderUISize + borderPadding * 2, this.clock.elapsed, timerConfig)
+        //console.log(this.clock.elapsed)
+        console.log(this.timeLeft)
 
         //physics colliders
         this.physics.add.collider(this.p1Rocket, this.ship03, this.handleCollision, null, this)
@@ -84,6 +102,8 @@ class Play extends Phaser.Scene {
         }
 
         this.starfield.tilePositionX -= 4;
+        
+        this.timeLeft.text = Math.ceil((game.settings.gameTimer - this.clock.elapsed) / 1000)
 
         if(!this.gameOver) {
             //rocket update
