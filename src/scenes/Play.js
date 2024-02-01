@@ -80,7 +80,7 @@ class Play extends Phaser.Scene {
         
         this.timeLeft = this.add.text(borderUISize * 8 + borderPadding * 1, borderUISize + borderPadding * 2, this.clock.elapsed, timerConfig)
         //console.log(this.clock.elapsed)
-        console.log(this.timeLeft)
+        //console.log(this.timeLeft)
 
         //physics colliders
         this.physics.add.collider(this.p1Rocket, this.ship03, this.handleCollision, null, this)
@@ -89,6 +89,9 @@ class Play extends Phaser.Scene {
         //physics colliders speeders
         this.physics.add.collider(this.p1Rocket, this.speeder01, this.handleCollision, null, this)
         this.physics.add.collider(this.p1Rocket, this.speeder02, this.handleCollision, null, this)
+
+        //testing
+        console.log(this)
     }
 
     update() {
@@ -168,9 +171,11 @@ class Play extends Phaser.Scene {
             ship.alpha = 1
             boom.destroy()
         })
-        
+        //add time
+        this.clock.elapsed -= ship.points * 100
         //score
         console.log(`added ${ship.points} points`)
+        console.log(`added ${ship.points/10} second(s)`)
         this.p1Score += ship.points
         this.scoreLeft.text = this.p1Score
 
