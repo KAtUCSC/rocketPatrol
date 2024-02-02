@@ -1,3 +1,9 @@
+/*
+Kira Way
+Jet Fuel: Rocket Patrol Versus
+Time taken: about 8 hours?
+Mods: second ship type 5, time remaining 3, hit miss clock manipulation 5, alternating 2 player mode 5, direction randomized 1, speed increase 1
+*/
 let config = {
     type: Phaser.AUTO,
     width: 640,
