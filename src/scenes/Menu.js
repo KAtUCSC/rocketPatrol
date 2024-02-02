@@ -68,7 +68,8 @@ class Menu extends Phaser.Scene {
                 gameTimer: 60000,
                 p1Score: 0,
                 p2Score: 0,
-                turn: 1
+                turn: 1,
+                speedModifier: 1
             }
             this.sound.play('sfx-select')
             this.scene.start('playScene')
@@ -81,7 +82,8 @@ class Menu extends Phaser.Scene {
                 gameTimer: 45000,
                 p1Score: 0,
                 p2Score: 0,
-                turn: 1
+                turn: 1,
+                speedModifier: 1
             }
             this.sound.play('sfx-select')
             this.scene.start('playScene')

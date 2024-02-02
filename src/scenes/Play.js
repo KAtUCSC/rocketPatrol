@@ -14,6 +14,9 @@ class Play extends Phaser.Scene {
         this.add.rectangle(0, 0, borderUISize, game.config.height, 0xffffff).setOrigin(0,0);
         this.add.rectangle(game.config.width - borderUISize, 0, borderUISize, game.config.height, 0xffffff).setOrigin(0,0);
 
+        //reset speed modifier
+        game.settings.speedModifier = 1
+
         //add rocket (p1)
         this.p1Rocket = new Rocket(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'rocket').setOrigin(0.5, 0)
 
@@ -57,6 +60,15 @@ class Play extends Phaser.Scene {
         this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
             this.gameOver = true
             this.handleRoundEndText()
+        },
+        null,
+        this
+        )
+
+        //speed up after 30s
+        this.speedup = this.time.delayedCall(30000, () => {
+            game.settings.speedModifier = 1.5
+            console.log('speed up')
         },
         null,
         this
