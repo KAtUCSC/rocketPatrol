@@ -65,7 +65,10 @@ class Menu extends Phaser.Scene {
             game.settings = {
                 spaceshipSpeed: 3,
                 speederSpeed: 4,
-                gameTimer: 60000
+                gameTimer: 60000,
+                p1Score: 0,
+                p2Score: 0,
+                turn: 1
             }
             this.sound.play('sfx-select')
             this.scene.start('playScene')
@@ -75,7 +78,10 @@ class Menu extends Phaser.Scene {
             game.settings = {
                 spaceshipSpeed: 4,
                 speederSpeed: 6,
-                gameTimer: 45000
+                gameTimer: 45000,
+                p1Score: 0,
+                p2Score: 0,
+                turn: 1
             }
             this.sound.play('sfx-select')
             this.scene.start('playScene')
